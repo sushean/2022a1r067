@@ -1,10 +1,10 @@
-const axios = requirer('axios');
+const axios = require('axios');
 
 async function Log(stack, level, pkg, message) {
   const allowedStacks = ["backend", "frontend"];
   const allowedLevels = ["debug", "info", "warn", "error", "fatal"];
   const allowedPackages = ["auth", "config", "middleware", "utils"];
-}
+
 
   if (!allowedStacks.includes(stack)) 
     {
@@ -19,19 +19,20 @@ async function Log(stack, level, pkg, message) {
         throw new Error("Invalid package");
     }
 
-const body = {
-  stack: stack.toLowerCase(),
-  level: level.toLowerCase(),
-  package: pkg.toLowerCase(),
-  message,
-};
+    const body = {
+        stack: stack.toLowerCase(),
+        level: level.toLowerCase(),
+        package: pkg.toLowerCase(),
+        message,
+    };
 
-try 
-{
-    const response = await axios.post("http://20.244.56.144/evaluation-service/logs", body);
-    console.log("Log sent successfully:", response.status);
-} 
-catch (err) 
-{
-    console.error("Failed to send log:", err.message);
+    try 
+    {
+        const response = await axios.post("http://20.244.56.144/evaluation-service/logs", body);
+        console.log("Log sent successfully:", response.status);
+    } 
+    catch (err) 
+    {
+        console.error("Failed to send log:", err.message);
+    }
 }

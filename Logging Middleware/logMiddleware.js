@@ -18,3 +18,20 @@ async function Log(stack, level, pkg, message) {
     {
         throw new Error("Invalid package");
     }
+
+const body = {
+  stack: stack.toLowerCase(),
+  level: level.toLowerCase(),
+  package: pkg.toLowerCase(),
+  message,
+};
+
+try 
+{
+    const response = await axios.post("http://20.244.56.144/evaluation-service/logs", body);
+    console.log("Log sent successfully:", response.status);
+} 
+catch (err) 
+{
+    console.error("Failed to send log:", err.message);
+}
